@@ -6,7 +6,6 @@
 #include <string.h>
 #include <stdarg.h>
 #include "stm32f4xx_ll_usart.h"
-#include "Driver_USART.h"
 #include "stm32f4xx_hal_crc.h"
 
 
@@ -60,7 +59,7 @@ UART_HandleTypeDef huart3;
 #define CBL_SW_MINOR_VERSION         0
 #define CBL_SW_PATCH_VERSION         0
 
-/* CRC_VERIFICATION */
+// CRC_VERIFICATION
 #define CRC_TYPE_SIZE_BYTE           4
 
 #define CRC_VERIFICATION_FAILED      0x00
@@ -69,12 +68,13 @@ UART_HandleTypeDef huart3;
 #define CBL_SEND_NACK                0xAB
 #define CBL_SEND_ACK                 0xCD
 
-/* Start address of sector 2 */
+// Start address of sector 2
 #define FLASH_SECTOR2_BASE_ADDRESS   0x08008000U
 
 #define ADDRESS_IS_INVALID           0x00
 #define ADDRESS_IS_VALID             0x01
 
+// Read Out Protection Level
 #define STM32F407_SRAM1_SIZE         (112 * 1024)
 #define STM32F407_SRAM2_SIZE         (16 * 1024)
 #define STM32F407_SRAM3_SIZE         (64 * 1024)
@@ -106,22 +106,23 @@ UART_HandleTypeDef huart3;
 #define ROP_LEVEL_READ_INVALID       0x00
 #define ROP_LEVE_READL_VALID         0X01
 
-// CBL_CHANGE_ROP_Level_CMD
+// CBL_CHANGE_ROP_Level_CMD 
 #define ROP_LEVEL_CHANGE_INVALID     0x00
 #define ROP_LEVEL_CHANGE_VALID       0X01
 
+// CBL_READ_SECTOR_STATUS_CMD
 #define CBL_ROP_LEVEL_0              0x00
 #define CBL_ROP_LEVEL_1              0x01
 #define CBL_ROP_LEVEL_2              0x02
 
-typedef enum{
+typedef enum {
 	BL_NACK = 0,
 	BL_OK
-}BL_Status;
+}BL_Status;  // Bootloader status enumeration
 
 
-typedef void (*pMainApp)(void);
-typedef void (*Jump_Ptr)(void);
+typedef void (*pMainApp)(void);  // Function pointer to main application
+typedef void (*Jump_Ptr)(void);  // Function pointer to jump to main application
 
 
 void BL_Print_Message(char *param, ...);
